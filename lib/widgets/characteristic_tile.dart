@@ -123,12 +123,12 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
         });
   }
 
-  Widget buildWriteButton(BuildContext context) {
+  Widget buildWriteButton(BuildContext context, String s) {
     bool withoutResp = widget.characteristic.properties.writeWithoutResponse;
     return TextButton(
-        child: Text(withoutResp ? "WriteNoResp" : "Write"),
+        child: Text(withoutResp ? "WriteNoResp $s" : "Write $s"),
         onPressed: () async {
-          await onWritePressed('TEST');
+          await onWritePressed(s);
           if (mounted) {
             setState(() {});
           }
@@ -156,7 +156,9 @@ class _CharacteristicTileState extends State<CharacteristicTile> {
       mainAxisSize: MainAxisSize.min,
       children: [
         if (read) buildReadButton(context),
-        if (write) buildWriteButton(context),
+        if (write) buildWriteButton(context, 'A'),
+        if (write) buildWriteButton(context, 'B'),
+        if (write) buildWriteButton(context, 'C'),
         if (notify || indicate) buildSubscribeButton(context),
       ],
     );
